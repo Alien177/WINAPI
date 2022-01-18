@@ -14,6 +14,13 @@ When you need to locate the address of ntdll!RtlReportSilentProcessExit using Ge
 
 The End. 
 
+```c++
+NTSTATUS(NTAPI* RtlReportSilentProcessExit) (
+  _In_ HANDLE hProcess,
+  _In_ NTSTATUS ExitStatus);
+```
+
+
 References:
 https://chowdera.com/2021/04/20210402154045817a.html
 https://www.programmerall.com/article/78082011986/
