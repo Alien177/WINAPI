@@ -1,3 +1,3 @@
 # WINAPI
 
-Recording my travels in ntdll land.
+Recording of my travels in ntdll land.
