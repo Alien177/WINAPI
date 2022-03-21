@@ -24,6 +24,9 @@ typedef struct _FILE_FULL_EA_INFORMATION {
 };
 ```
 
+`EaName` is an array of characters naming the EA for this entry.
+The value associated with each entry follows the EaName array. That is, an EA's values are located at EaName + (EaNameLength + 1)
+
 Test subject:
 ```
 fsutil.exe file queryea C:\Windows\System32\calc.exe
