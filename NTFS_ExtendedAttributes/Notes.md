@@ -1,3 +1,21 @@
+### Workflow
+
+Problem:
+For a given file get EA name and value lenght.
+
+Solution:
+1. Get a handle to a file (`NtOpenFile`)
+2. Query file's extended attributes (`ZwQueryEaFile`)
+
+Observations:
+1. `ZwQueryEaFile` puts that EA data into a buffer `FILE_FULL_EA_INFORMATION` which contains `CHAR EaName[1]` variable that supposed to be a 
+"variable length array"
+2. I used the hardcoded value to set the size of this array `EaName[EA_MAX_BUFFER_SIZE]`. Without it call to ZwQueryEaFile was constantly resulting into `0xc0000023` aka `STATUS_BUFFER_TOO_SMALL`
+3. But we actually can figure out the size of this array in advance with `NtQueryInformationFile` function with `FILE_INFORMATION_CLASS` set to `FileEaInformation`.
+So it anyone has an idea on how  `SIZE` in `CHAR EaName[SIZE]` can be set to the output produced by `NtQueryInformationFile` - I am all ears =)
+
+### Comments
+
 `ZwQueryEaFile` routine returns info about EA values of a file.
 
 ```c++
@@ -56,14 +74,9 @@ Ea Value Length: 5d
 0050:  39 30 34 31 2e 31 35 38  36 2e 63 61 74           9041.1586.cat
 ```
 
-
-### Comments
 ULONG - 32 bit (4 bytes) unsigned integer
 UCHAR - unsigned CHAR (1 byte)
 USHORT - usigned SHORT (2 bytes)
-
-
-
 
 ### Useful Info
 https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-erref/596a1078-e883-4972-9bbc-49e60bebca55
