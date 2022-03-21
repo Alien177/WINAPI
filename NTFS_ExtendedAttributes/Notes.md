@@ -13,6 +13,7 @@ Observations:
 2. I used the hardcoded value to set the size of this array `EaName[EA_MAX_BUFFER_SIZE]`. Without it call to ZwQueryEaFile was constantly resulting into `0xc0000023` aka `STATUS_BUFFER_TOO_SMALL`
 3. But we actually can figure out the size of this array in advance with `NtQueryInformationFile` function with `FILE_INFORMATION_CLASS` set to `FileEaInformation`.
 So it anyone has an idea on how  `SIZE` in `CHAR EaName[SIZE]` can be set to the output produced by `NtQueryInformationFile` - I am all ears =)
+4. The aforementioned `EaName[EA_MAX_BUFFER_SIZE]` also contains EA value (actual EA data) is you want to parse/examine through those
 
 ### Comments
 
