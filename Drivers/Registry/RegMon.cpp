@@ -2,7 +2,6 @@
 
 #define DRIVER_PREFIX "SimpleRegMon"
 
-
 DRIVER_UNLOAD RegMonUnload;
 
 NTSTATUS OnRegistryNotify(PVOID context, PVOID Arg1, PVOID Arg2);
