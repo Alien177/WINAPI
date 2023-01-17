@@ -3,8 +3,8 @@
 Just some interesting stuff in C++:
 
 * LSASS_Access
- * RtlReportSilentProcessExit
- * Ntdll unhook and MiniDumpWriteDump
+  * RtlReportSilentProcessExit
+  * Ntdll unhook and MiniDumpWriteDump
 * NTFS_ExtendedAttributes - getting file's NTFS extended attributes
 * Registry
   * Invisible registry key
