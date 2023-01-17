@@ -2,7 +2,9 @@
 
 Just some interesting stuff in C++:
 
-* RtlReportSilentProcessExit - dumping lsass memory 
+* LSASS_Access
+ * RtlReportSilentProcessExit
+ * Ntdll unhook and MiniDumpWriteDump
 * NTFS_ExtendedAttributes - getting file's NTFS extended attributes
 * Registry
   * Invisible registry key
