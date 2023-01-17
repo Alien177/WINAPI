@@ -9,4 +9,4 @@ Just some interesting stuff in C++:
 * Registry
   * Invisible registry key
   * Fileless binary storage
-  * https://github.com/ewhitehats/InvisiblePersistence/blob/master/InvisibleRegValues_Whitepaper.pdf) 
+  * https://github.com/ewhitehats/InvisiblePersistence/blob/master/InvisibleRegValues_Whitepaper.pdf
