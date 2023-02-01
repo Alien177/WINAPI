@@ -1,4 +1,5 @@
 ## UnhookNtdll_LSASS_MiniDumpWriteDump.cpp
+I mean this probably should go under Unhooking UserMode hooks but oh well. We are dumping lsass. This is the same as DualLoad ntdll.dll but you are using file on disk instead of the section name.\
 UnhookNtdll_LSASS_MiniDumpWriteDump.cpp - loads ntdll.dll from disk, overwrites ntdll.dll loaded by Windows loader, dumps LSASS using MiniDumpWriteDump
   * https://www.ired.team/offensive-security/defense-evasion/how-to-unhook-a-dll-using-c++
   * https://www.solomonsklash.io/pe-parsing-defeating-hooking.html
