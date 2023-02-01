@@ -28,8 +28,8 @@ NTSTATUS(NTAPI* RtlReportSilentProcessExit) (
 ```
 
 
-References:
-https://chowdera.com/2021/04/20210402154045817a.html
-https://www.programmerall.com/article/78082011986/
-https://www.hexacorn.com/blog/2019/09/19/silentprocessexit-quick-look-under-the-hood/
-https://www.deepinstinct.com/blog/lsass-memory-dumps-are-stealthier-than-ever-before-part-2
+References:\
+* https://chowdera.com/2021/04/20210402154045817a.html
+* https://www.programmerall.com/article/78082011986/
+* https://www.hexacorn.com/blog/2019/09/19/silentprocessexit-quick-look-under-the-hood/
+* https://www.deepinstinct.com/blog/lsass-memory-dumps-are-stealthier-than-ever-before-part-2
