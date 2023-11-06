@@ -129,10 +129,6 @@ void keQueryPerformanceCounterHook(ULONG_PTR* pStack)
 			const auto syscallType = (syscallNumber >> 7) & 0x20;
 			const auto serviceTable = *reinterpret_cast<std::int32_t**>(keServiceDescriptorTable + syscallType);
 			const auto systemRoutine = reinterpret_cast<std::uintptr_t>(serviceTable) + (serviceTable[syscallNumber & 0xFFF] >> 4);
-
-			//std::uintptr_t stackLowLimit, stackHighLimit;
-			//IoGetStackLimits(&stackLowLimit, &stackHighLimit);
-
 			
 			auto stack = (ULONG_PTR)pStack + 0x280;
 
@@ -142,27 +138,6 @@ void keQueryPerformanceCounterHook(ULONG_PTR* pStack)
 				}
 			}
 			
-			// looks like the system routine address is located outside of the current thread's stack limits
-			// walking the stack using the current thread stack limits leads to hook NOT being intalled 
-			// meaning the systemRoutine address was not found 
-
-			// walking the stack outside of the valid stack limits may lead to us accessing invalid memory address
-			// stored on the stack which leads to bugcheck - so it is not an option either
-
-			// There is MmIsAddressValid() won't help here - you still will run in BSOD
-			// So they must have guessed the x280 offset up the stack 
-
-			/*
-			for (auto stack = stackLowLimit; stack < stackHighLimit - sizeof(std::uintptr_t); stack++) {
-				if (*reinterpret_cast<std::uint64_t*>(stack) == systemRoutine) {
-					if (systemRoutine == targetSystemCallFunction) {
-						*reinterpret_cast<std::uint64_t*>(stack) = systemCallHookFunction;
-						break;
-					}
-				}
-			}
-			*/
-
 			return;
 		}
 	}
